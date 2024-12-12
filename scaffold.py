@@ -3,16 +3,17 @@ import subprocess
 from pathlib import Path
 import random
 
-# Path to your local SSPACE installation (relative to the repository)
-SSPACE_PATH = "./sspace_basic-2.1.1"  # Relative path to SSPACE directory
+# Change path values as needed for your environment
+# Path to your local SSPACE installation
+SSPACE_PATH = "./sspace_basic-2.1.1"
 
-# Path to your contig file and read files (relative to the repository)
-CONTIG_FILE = "./contigs.fasta"  # Replace with the actual contig file path
-READ1_FILE = "./simulated_reads_R1.fastq"    # Replace with the actual read1 file path
-READ2_FILE = "./simulated_reads_R2.fastq"    # Replace with the actual read2 file path
+# Path to your contig file and read files
+CONTIG_FILE = "./contigs.fasta"
+READ1_FILE = "./simulated_reads_R1.fastq"
+READ2_FILE = "./simulated_reads_R2.fastq"
 
-# Output directory (relative to the repository)
-OUTPUT_DIR = "./output"  # Replace with the directory for results
+# Output directory
+OUTPUT_DIR = "./output"
 Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 
 # Function to calculate library statistics from the paired-end reads
