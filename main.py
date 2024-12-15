@@ -2,7 +2,7 @@ from generate_reads import simulate_paired_end_reads, error_correction
 from contigs import build_overlap_graph, assemble_from_long_reads
 from gap_fill import  merge_scaffolds
 from fast import write_fasta, parse_fasta, parse_fastq, write_fastq
-from metric import edit_dist, completeness
+from metric import edit_dist, score_seq
 from tqdm import tqdm
 # Parameters
 read_length = 1000
@@ -43,21 +43,20 @@ print(f"Construct {len(scaffolds)} contigs")
 
 seq = merge_scaffolds(scaffolds, 10)
 write_fasta(seq, "final_sequence.fasta")
-def score_seq(s1, s2):
-    return sum([1 if i == j else 0 for i,j in zip(s1, s2)])
 
+
+# Find maximal similar subsequence
 s = parse_fasta("final_sequence.fasta")
 s = ''.join(s)
 
 best_score = 0
 best_alignment = None
-best_merged_sequence = None
 for i in tqdm(range(0, len(s)-len(dna_sequence), 1)):
     si = s[i:i+len(dna_sequence)]
     score = score_seq(si, dna_sequence)
     if score > best_score:
         best_score = score
         best_alignment = si
-        best_merged_sequence = si
 print(f'Best alignment score: {best_score}')
+print(edit_dist(best_alignment, dna_sequence))
 write_fasta([best_alignment], 'best_alignment.fasta')

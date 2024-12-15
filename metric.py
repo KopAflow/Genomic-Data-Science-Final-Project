@@ -5,7 +5,7 @@ def edit_dist(s1, s2):
     prev = list(range(n + 1))
 
     # Rest of the rows
-    for i in (range(1, m + 1)):
+    for i in tqdm(range(1, m + 1)):
         curr = [i]  # j = 0
         for j in range(1, n + 1):
             if s1[i - 1] == s2[j - 1]:
@@ -15,11 +15,5 @@ def edit_dist(s1, s2):
         prev = curr
     return prev[n]
 
-
-
-def completeness(assembled_seq):
-    cnt = 0
-    for g in assembled_seq:
-        if g == 'N':
-            cnt += 1
-    return cnt/len(assembled_seq)
+def score_seq(s1, s2):
+    return sum([1 if i == j else 0 for i,j in zip(s1, s2)])

@@ -32,7 +32,7 @@ def simulate_paired_end_reads(sequence, read_length, coverage, error_rate=0.01):
     for _ in range(num_reads):
         start = random.randint(0, len(sequence) - read_length)
         read1 = sequence[start:start + read_length]
-        read2 = sequence[start:start + read_length][::-1]  # Reverse complement of the same read
+        read2 = sequence[start:start + read_length][::-1]
         r1, cnt1 = introduce_errors(read1, error_rate)
         r2, cnt2 = introduce_errors(read2, error_rate)
         reads.append((r1, r2))
